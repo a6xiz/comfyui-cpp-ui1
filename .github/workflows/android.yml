@@ -14,20 +14,21 @@ jobs:
     runs-on: ubuntu-24.04
     steps:
       - name: Get the code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Java 21
-        uses: actions/setup-java@v4
+        uses: actions/setup-java@v5
         with:
           distribution: temurin
           java-version: "21"
 
-      - name: Android SDK
-        uses: android-actions/setup-android@v3
-
+      # The GitHub runner already has the Android SDK, so we only add what Qt 6.12 needs.
+      # (The "setup-android" action is not used: it fails with the newest tools.)
       - name: Android platform, build-tools and NDK (what Qt 6.12 needs)
         run: |
-          sdkmanager "platform-tools" "platforms;android-36" "build-tools;36.0.0" "ndk;${NDK_VERSION}"
+          SDKM="$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager"
+          yes | "$SDKM" --licenses > /dev/null || true
+          "$SDKM" "platform-tools" "platforms;android-36" "build-tools;36.0.0" "ndk;${NDK_VERSION}"
 
       # Qt for Android needs the normal desktop Qt too (to run moc, rcc, qmlcachegen...)
       - name: Qt for Linux (desktop tools)
