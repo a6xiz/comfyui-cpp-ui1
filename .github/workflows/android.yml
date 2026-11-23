@@ -6,7 +6,7 @@ on:
     branches: [main, master]
 
 env:
-  QT_VERSION: "6.12.0"
+  QT_VERSION: "6.10.3"   # 6.12.0 is not available for Android on the download tool yet
   NDK_VERSION: "27.2.12479018"
 
 jobs:
@@ -22,13 +22,13 @@ jobs:
           distribution: temurin
           java-version: "21"
 
-      # The GitHub runner already has the Android SDK, so we only add what Qt 6.12 needs.
+      # The GitHub runner already has the Android SDK, so we only add what Qt 6.10 / 6.12 need.
       # (The "setup-android" action is not used: it fails with the newest tools.)
-      - name: Android platform, build-tools and NDK (what Qt 6.12 needs)
+      - name: Android platform, build-tools and NDK (what Qt 6.10 / 6.12 need)
         run: |
           SDKM="$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager"
           yes | "$SDKM" --licenses > /dev/null || true
-          "$SDKM" "platform-tools" "platforms;android-36" "build-tools;36.0.0" "ndk;${NDK_VERSION}"
+          "$SDKM" "platform-tools" "platforms;android-35" "platforms;android-36" "build-tools;35.0.0" "build-tools;36.0.0" "ndk;${NDK_VERSION}"
 
       # Qt for Android needs the normal desktop Qt too (to run moc, rcc, qmlcachegen...)
       - name: Qt for Linux (desktop tools)
