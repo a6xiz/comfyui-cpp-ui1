@@ -1,0 +1,266 @@
+{
+  "8": {
+    "inputs": {
+      "samples": [
+        "19",
+        0
+      ],
+      "vae": [
+        "15",
+        0
+      ]
+    },
+    "class_type": "VAEDecode",
+    "_meta": {
+      "title": "VAE Decode skip the ui of it"
+    }
+  },
+  "12": {
+    "inputs": {
+      "text": "",
+      "clip": [
+        "47",
+        0
+      ]
+    },
+    "class_type": "CLIPTextEncode",
+    "_meta": {
+      "title": "CLIP Text Encode (Negative Prompt) skip the ui of it"
+    }
+  },
+  "15": {
+    "inputs": {
+      "vae_name": "qwen_image_vae.safetensors"
+    },
+    "class_type": "VAELoader",
+    "_meta": {
+      "title": "Load VAE skip the ui of it"
+    }
+  },
+  "19": {
+    "inputs": {
+      "seed": 447828876074492,
+      "steps": 6,
+      "cfg": 3.7,
+      "sampler_name": "er_sde",
+      "scheduler": "simple",
+      "denoise": 1,
+      "model": [
+        "44",
+        0
+      ],
+      "positive": [
+        "110",
+        0
+      ],
+      "negative": [
+        "12",
+        0
+      ],
+      "latent_image": [
+        "53",
+        0
+      ]
+    },
+    "class_type": "KSampler",
+    "_meta": {
+      "title": "KSampler"
+    }
+  },
+  "44": {
+    "inputs": {
+      "unet_name": "novaFurryAM_v20.safetensors",
+      "weight_dtype": "default"
+    },
+    "class_type": "UNETLoader",
+    "_meta": {
+      "title": "Load Diffusion Model"
+    }
+  },
+  "47": {
+    "inputs": {
+      "clip_name": "qwen_3_06b_base.safetensors",
+      "type": "stable_diffusion",
+      "device": "default"
+    },
+    "class_type": "CLIPLoader",
+    "_meta": {
+      "title": "Load CLIP"
+    }
+  },
+  "51": {
+    "inputs": {
+      "threshold": 0.15,
+      "character_threshold": 0.5,
+      "trailing_comma": false,
+      "sort_tags": true,
+      "exclude_tags": "subtitled, monochrome, greyscale, simple background, white background, uchiha sasuke, jiro kyoka",
+      "tagger_model": [
+        "52",
+        0
+      ],
+      "tagger_info": [
+        "52",
+        1
+      ],
+      "image": [
+        "103",
+        0
+      ]
+    },
+    "class_type": "Booru Tagger",
+    "_meta": {
+      "title": "Booru Tagger i2i"
+    }
+  },
+  "52": {
+    "inputs": {
+      "model_name": "pixai-tagger-v0.9",
+      "replace_underscore": true
+    },
+    "class_type": "Load Booru Tagger",
+    "_meta": {
+      "title": "Load Booru Tagger i2i"
+    }
+  },
+  "53": {
+    "inputs": {
+      "width": 832,
+      "height": 1024,
+      "batch_size": 1
+    },
+    "class_type": "LatentPresetsNode",
+    "_meta": {
+      "title": "Latent Presets"
+    }
+  },
+  "62": {
+    "inputs": {
+      "value": [
+        "51",
+        0
+      ]
+    },
+    "class_type": "PrimitiveString",
+    "_meta": {
+      "title": "Text String i2i"
+    }
+  },
+  "95": {
+    "inputs": {
+      "filename_prefix": "ComfyUI",
+      "subfolder": "1",
+      "images": [
+        "8",
+        0
+      ],
+      "prompt_text": [
+        "62",
+        0
+      ]
+    },
+    "class_type": "SaveImageWithPrompt",
+    "_meta": {
+      "title": "Save Image (w/ Embedded Prompt) skip the ui of it"
+    }
+  },
+  "98": {
+    "inputs": {
+      "images": [
+        "8",
+        0
+      ]
+    },
+    "class_type": "PreviewImage",
+    "_meta": {
+      "title": "Preview Image"
+    }
+  },
+  "102": {
+    "inputs": {
+      "filename_prefix": "ComfyUI",
+      "images": [
+        "8",
+        0
+      ]
+    },
+    "class_type": "SaveImage",
+    "_meta": {
+      "title": "Save Image"
+    }
+  },
+  "103": {
+    "inputs": {
+      "image": "24e8dc65584dc8267a88ff0957efb4cd.jpg"
+    },
+    "class_type": "LoadImage",
+    "_meta": {
+      "title": "Load Image for i2i"
+    }
+  },
+  "107": {
+    "inputs": {
+      "source": [
+        "62",
+        0
+      ]
+    },
+    "class_type": "PreviewAny",
+    "_meta": {
+      "title": "Preview as Text"
+    }
+  },
+  "109": {
+    "inputs": {
+      "source_1": [
+        "112",
+        0
+      ],
+      "source_2": [
+        "107",
+        0
+      ]
+    },
+    "class_type": "CombineText",
+    "_meta": {
+      "title": "Combine Text"
+    }
+  },
+  "110": {
+    "inputs": {
+      "text": [
+        "109",
+        0
+      ],
+      "clip": [
+        "47",
+        0
+      ]
+    },
+    "class_type": "CLIPTextEncode",
+    "_meta": {
+      "title": "CLIP Text Encode (Prompt)"
+    }
+  },
+  "111": {
+    "inputs": {
+      "source": [
+        "109",
+        0
+      ]
+    },
+    "class_type": "PreviewAny",
+    "_meta": {
+      "title": "Preview as Text"
+    }
+  },
+  "112": {
+    "inputs": {
+      "value": "erected penis, blue ocean in the background, naked exposed breast, heavy breast, cumming"
+    },
+    "class_type": "PrimitiveStringMultiline",
+    "_meta": {
+      "title": "Text String (Multiline) for the text to image"
+    }
+  }
+}
