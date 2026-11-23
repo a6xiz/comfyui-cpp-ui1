@@ -6,7 +6,7 @@ on:
     branches: [main, master]
 
 env:
-  QT_VERSION: "6.10.3"   # 6.12.0 is not available for Android on the download tool yet
+  QT_VERSION: "6.10.3"
   NDK_VERSION: "27.2.12479018"
 
 jobs:
@@ -42,16 +42,19 @@ jobs:
           cache: true
           set-env: false
 
-      - name: Qt for Android (arm64)
-        uses: jurplel/install-qt-action@v4
+      # Qt 6.7+ for Android is stored in a different place on Qt's server, and the
+      # "install-qt-action" cannot look it up (that was the "No latest version" error).
+      # So we call the installer tool (aqt) directly for the Android part.
+      - name: Python for the Qt installer tool
+        uses: actions/setup-python@v6
         with:
-          version: ${{ env.QT_VERSION }}
-          host: linux
-          target: android
-          arch: android_arm64_v8a
-          dir: ${{ runner.temp }}
-          cache: true
-          set-env: false
+          python-version: "3.12"
+
+      - name: Qt for Android (arm64)
+        run: |
+          python3 -m pip install "aqtinstall==3.3.*" "py7zr==1.1.0"
+          python3 -m aqt install-qt linux android "${QT_VERSION}" android_arm64_v8a -O "$RUNNER_TEMP/Qt"
+          ls "$RUNNER_TEMP/Qt/${QT_VERSION}"
 
       - name: Signing key
         env:
